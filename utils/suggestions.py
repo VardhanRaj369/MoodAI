@@ -37,55 +37,70 @@ def generate_suggestions(emotion, topics):
     }
 
     # -------------------------
-    # TOPIC-BASED ADVICE
+    # TOPIC-BASED ADVICE (advanced matching)
     # -------------------------
     topic_advice = []
 
-    if any(t in topics for t in ["exam", "study", "test"]):
-        topic_advice.append("Break your study into small sessions — your mind absorbs better that way.")
-        topic_advice.append("Practice past papers to build confidence.")
+    def topic_match(*keywords):
+        """Match stemmed topics using partial string matching."""
+        return any(any(key in t for key in keywords) for t in topics)
 
-    if any(t in topics for t in ["work", "office", "job", "career"]):
-        topic_advice.append("Prioritize your tasks — not everything needs to be done at once.")
-        topic_advice.append("Take a short walk to refresh your mind if stress builds up.")
+    # STUDY / EXAM
+    if topic_match("exam", "exams", "studi", "study", "test"):
+        topic_advice.append("It's normal to feel anxious before exams — many people experience the same.")
+        topic_advice.append("Break your study into short, focused sessions with small breaks.")
+        topic_advice.append("Practice past exam papers to reduce fear and build confidence.")
+        topic_advice.append("Progress matters more than pressure — take it step by step.")
 
-    if any(t in topics for t in ["relationship", "partner", "love"]):
-        topic_advice.append("Honest communication can clear many misunderstandings.")
-        topic_advice.append("Reflect on what you truly need emotionally right now.")
+    # WORK / CAREER
+    if topic_match("work", "job", "office", "career"):
+        topic_advice.append("Organize your tasks — small progress reduces stress.")
+        topic_advice.append("Take a short break if you're overwhelmed.")
 
-    if any(t in topics for t in ["friends", "friendship"]):
-        topic_advice.append("Reach out to a friend — even a small conversation can help.")
-        topic_advice.append("Think of someone who made your day better.")
+    # RELATIONSHIPS
+    if topic_match("relationship", "partner", "lover", "love"):
+        topic_advice.append("Honest and gentle communication can clear misunderstandings.")
+        topic_advice.append("Reflect on your emotional needs right now.")
 
-    if any(t in topics for t in ["family", "parents", "home"]):
-        topic_advice.append("Family relationships can be complex — patience helps.")
-        topic_advice.append("Try to express your feelings gently and clearly.")
+    # FRIENDS
+    if topic_match("friend", "friends"):
+        topic_advice.append("Reaching out to a friend can lighten emotional weight.")
+        topic_advice.append("Think of someone you appreciate in your life.")
 
-    if any(t in topics for t in ["health", "illness", "sick", "pain"]):
-        topic_advice.append("Listen to your body — rest is not a weakness.")
-        topic_advice.append("If symptoms persist, consider speaking with a professional.")
+    # FAMILY
+    if topic_match("famili", "parent", "home"):
+        topic_advice.append("Family emotions can be complex — patience helps.")
+        topic_advice.append("Express your feelings gently and clearly.")
 
-    if any(t in topics for t in ["money", "finance", "salary"]):
-        topic_advice.append("List your expenses to regain a sense of control.")
-        topic_advice.append("Financial stress is common — take one step at a time.")
+    # HEALTH
+    if topic_match("health", "sick", "ill", "pain"):
+        topic_advice.append("Listen to your body — rest is important.")
+        topic_advice.append("If symptoms continue, consider speaking to a professional.")
 
-    if any(t in topics for t in ["school", "college", "class"]):
-        topic_advice.append("Stay consistent — progress compounds over time.")
-        topic_advice.append("Ask for help when you need it. You don’t have to do everything alone.")
+    # MONEY
+    if topic_match("money", "financ", "salary", "debt"):
+        topic_advice.append("Write down your expenses to regain control.")
+        topic_advice.append("Financial stress is common — take it one step at a time.")
 
-    if any(t in topics for t in ["fear", "danger", "threat"]):
-        topic_advice.append("Ground yourself: look around and remind yourself you are safe now.")
+    # SCHOOL / COLLEGE
+    if topic_match("school", "colleg", "class", "univers"):
+        topic_advice.append("Consistency creates growth — keep going.")
+        topic_advice.append("Don't hesitate to ask for help — you're not alone.")
+
+    # FEAR THEMES
+    if topic_match("fear", "danger", "threat"):
+        topic_advice.append("Ground yourself by noticing your surroundings — you're safe.")
 
     # -------------------------
-    # FINAL RECOMMENDATION COMBINATION
+    # FINAL COMBINATION
     # -------------------------
-    final_suggestions = emotion_advice.get(emotion, [])
+    final = emotion_advice.get(emotion, [])
 
-    # add topic-based advice
-    final_suggestions.extend(topic_advice)
+    if topic_advice:
+        final.append("\n### Topic-Based Advice:")
+        final.extend(topic_advice)
 
-    # fallback if everything empty
-    if not final_suggestions:
-        final_suggestions = ["Take a moment to reflect on your feelings today."]
+    if not final:
+        final = ["Take a moment to reflect on your feelings today."]
 
-    return final_suggestions
+    return final
