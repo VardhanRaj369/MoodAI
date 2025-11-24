@@ -43,13 +43,17 @@ with tab1:
         if text.strip() == "":
             st.warning("Please write something first.")
         else:
-            emotion, confidence = get_emotion(text)
+            emotion, confidence, secondary, reasoning = get_emotion(text)
             topics = extract_topics(text)
             suggestions = generate_suggestions(emotion, topics)
 
             save_entry(text, emotion, confidence, topics)
 
-            st.subheader(f"Emotion: **{emotion}** ({confidence:.2f} confidence)")
+            st.subheader(f"Primary Emotion: {emotion} ({confidence:.2f})")
+            st.write(f"Secondary Emotion: {secondary}")
+            st.write("Reasoning:")
+            st.write(reasoning)
+
             st.write("**Topics detected:**", topics)
             st.write("### Suggested Advice:")
             for s in suggestions:
@@ -77,3 +81,4 @@ with tab2:
         words = " ".join(df["text"].tolist())
         wc = WordCloud(width=600, height=400, background_color="white").generate(words)
         st.image(wc.to_array(), caption="Your Word Cloud")
+
