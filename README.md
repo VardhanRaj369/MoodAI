@@ -76,7 +76,7 @@ Emotional Dashboard
 
 📦 Installation
 1️⃣ Clone the repository
-git clone https://github.com/your-username/MoodAI.git
+git clone https://github.com/VardhanRaj369/MoodAI.git
 cd MoodAI
 2️⃣ Install Dependencies
 pip install -r requirements.txt
@@ -146,6 +146,6 @@ Visualize the most common words from your journal.
 🤝 Contributing
 Pull requests and feature suggestions are welcome!
 
-💬 Author
+💬 Author : 
 Emmadi Leelavardhan Raj
 AI & Software Engineer | NLP Projects | Machine Learning Enthusiast
