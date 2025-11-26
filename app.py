@@ -228,7 +228,7 @@ def display_visualizations(emotion_data, context):
 
 def main():
     # Header
-    st.markdown('<h1 class="main-header">🧠 AI Emotional General</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">🧠 AI Emotional Journal</h1>', unsafe_allow_html=True)
     st.markdown("### Understand your emotions and get personalized suggestions")
 
     # Sidebar
@@ -306,7 +306,7 @@ def main():
                     type="secondary"
             ):
                 st.session_state.user_text = example
-                st.rerun()
+                
 
     # Handle analysis
     if analyze_button and st.session_state.user_text.strip():
@@ -352,4 +352,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
