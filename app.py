@@ -29,17 +29,18 @@ st.markdown("""
         margin: 0.5rem 0;
     }
     .suggestion-card {
-        padding: 1rem;
-        border-radius: 10px;
-        background-color: #e8f4fd;
-        margin: 0.5rem 0;
-        border-left: 4px solid #1f77b4;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: var(--secondary-background-color);
+    margin: 0.5rem 0;
+    border-left: 4px solid var(--primary-color);
+    color: var(--text-color);
     }
     .metric-card {
         text-align: center;
         padding: 1rem;
         border-radius: 10px;
-        background-color: white;
+        var(--secondary-background-color);
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .loading-spinner {
@@ -352,5 +353,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
