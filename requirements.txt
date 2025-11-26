@@ -1,8 +1,8 @@
 streamlit
 transformers
 torch
-keybert
-sentence-transformers
-wordcloud
-plotly
+numpy
 pandas
+textblob
+plotly
+scikit-learn
